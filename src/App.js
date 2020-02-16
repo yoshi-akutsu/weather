@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import SearchBar from './components/SearchBar'
+import WeatherView from './components/WeatherView'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    placeName: '',
+    minTemp: '',
+    maxTemp: '',
+    conditions: ''
+  }
+
+  getWeather(location) {
+    const apiKey = '&APPID=1bd7059eca12c52c4302f46ee4dc7da8';
+    const url = 'http://api.openweathermap.org/data/2.5/weather?' + 'q=London,uk' + apiKey;
+
+    fetch(url, {mode: 'cors'})
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+        //this.setState({placeName: response.name})
+      })
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <SearchBar getweather={this.getWeather} />
+        <WeatherView weather={this.state}/>
+      </div>
+    );
+  }
 }
 
 export default App;
