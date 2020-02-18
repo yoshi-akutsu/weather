@@ -1,4 +1,5 @@
 import React from 'react';
+import Forecast from './Forecast';
 
 class WeatherView extends React.Component {
     constructor (props) {
@@ -32,20 +33,20 @@ class WeatherView extends React.Component {
                         onClick={this.toggleUnit.bind(this)}
                         >{this.state.cOrF}
                     </button>
-                    <h5>{this.props.weather.conditions}</h5>
+                    <h5>{this.props.weather.conditionsToday}</h5>
                     {this.state.cOrF === 'to \u00B0C' ? (
-                        <h5>{this.toF(this.props.weather.temp)} {this.props.weather.temp ? '\u00B0F' : ''}</h5>
+                        <h5>{this.toF(this.props.weather.tempToday)} {this.props.weather.tempToday ? '\u00B0F' : ''}</h5>
                         ) : (
-                        <h5>{this.toC(this.props.weather.temp)} {this.props.weather.temp ? '\u00B0C' : ''}</h5>
+                        <h5>{this.toC(this.props.weather.tempToday)} {this.props.weather.tempToday ? '\u00B0C' : ''}</h5>
                     )}
-                    {this.props.weather.temp ? 
+                    {this.props.weather.tempToday ? 
                         (this.state.cOrF === 'to \u00B0C' ? 
-                            <p>{this.toF(this.props.weather.minTemp) + '\u00B0F'} - {this.toF(this.props.weather.maxTemp) + '\u00B0F'}</p> :
-                            <p>{this.toC(this.props.weather.minTemp) + '\u00B0C'} - {this.toC(this.props.weather.maxTemp) + '\u00B0C'}</p>) :
+                            <p>{this.toF(this.props.weather.minTempToday) + '\u00B0F'} - {this.toF(this.props.weather.maxTempToday) + '\u00B0F'}</p> :
+                            <p>{this.toC(this.props.weather.minTempToday) + '\u00B0C'} - {this.toC(this.props.weather.maxTempToday) + '\u00B0C'}</p>) :
                         <p></p>
                     }
-                    
                 </div>
+                <Forecast cOrF={this.state.cOrF} weatherForecast={this.props} toF={this.toF} toC={this.toC}/>
             </div>
         );
     }
@@ -53,7 +54,7 @@ class WeatherView extends React.Component {
 
 const weatherStyle = {
     padding: "1rem",
-    marginTop: "2rem",
+    margin: "2rem",
     textAlign: "center",
     border: "1px solid black"
 }
@@ -61,7 +62,7 @@ const weatherStyle = {
 const cardStyle = {
     background: "light gray",
     margin: "2rem",
-    border: "1px solid red"
+    border: "1px solid black"
 }
 
 export default WeatherView;
