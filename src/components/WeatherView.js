@@ -5,9 +5,9 @@ class WeatherView extends React.Component {
         return (
             <div className='weatherContainer' style={weatherStyle}>
                 <div className='weatherCard' style={cardStyle}>
-                    <h1>City</h1>
-                    <h5>02/20/2020 Monday</h5>
-                    <p>Temperature: </p>
+                    <h1>{this.props.weather.placeName}</h1>
+                    <p>{this.props.weather.minTemp} K</p>
+                    <p>{this.props.weather.maxTemp} K</p>
                 </div>
             </div>
         );

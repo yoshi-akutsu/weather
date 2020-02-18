@@ -6,24 +6,34 @@ import WeatherView from './components/WeatherView'
 import './App.css';
 
 class App extends React.Component {
-  state = {
-    placeName: '',
-    minTemp: '',
-    maxTemp: '',
-    conditions: ''
-  }
+  constructor (props) {
+    super(props);
+    this.state = {
+      placeName: '',
+      minTemp: '',
+      maxTemp: ''
+    };
+  };
+
+  
 
   getWeather(location) {
+    console.log(location)
+    let location = 'q=London,uk';
     const apiKey = '&APPID=1bd7059eca12c52c4302f46ee4dc7da8';
-    const url = 'http://api.openweathermap.org/data/2.5/weather?' + 'q=London,uk' + apiKey;
+    const base = 'http://api.openweathermap.org/data/2.5/weather?';
+    const url = base + location + apiKey;s
 
-    fetch(url, {mode: 'cors'})
-      .then((response) => {
+
+    fetch(url)
+      .then(response => {
         return response.json();
       })
-      .then((response) => {
-        console.log(response);
-        //this.setState({placeName: response.name})
+      .then(response => {
+        console.log(response)
+        this.setState({placeName: response.name});
+        this.setState({minTemp: response.main.temp_min});
+        this.setState({maxTemp: response.main.temp_max});
       })
   }
 
@@ -31,7 +41,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <SearchBar getweather={this.getWeather} />
+        <SearchBar getweather={this.getWeather.bind(this)} />
         <WeatherView weather={this.state}/>
       </div>
     );
