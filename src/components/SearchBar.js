@@ -1,10 +1,11 @@
 import React from 'react';
+import { findByTestId } from '@testing-library/react';
 
 class SearchBar extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-          searchTerm: ''
+          searchTerm: '',
         };
     };
     
@@ -14,8 +15,8 @@ class SearchBar extends React.Component {
 
     sendSearch = () => {
         this.props.getweather(this.state.searchTerm);
+        this.setState({ searchTerm: '' });
     }
-
     render() {
         return (
             <div style={searchStyles}>
@@ -29,6 +30,7 @@ class SearchBar extends React.Component {
                 <button 
                 onClick={this.sendSearch} 
                 >Search</button>
+                <p>{this.props.message}</p>
             </div>
         );
     }
